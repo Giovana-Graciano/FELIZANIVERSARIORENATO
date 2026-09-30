@@ -9,7 +9,7 @@ let specialCard={id:"final",nome:"GIOVANA",titulo:"THE LOVE FILE",icon:"💚",ti
 async function loadLoveFile(){try{const r=await fetch("love-file.json?v=1",{cache:"no-store"});if(r.ok){const x=await r.json();specialCard={...specialCard,...x};}}catch(e){}}
 let musicLibrary=[];
 async function loadMusicLibrary(){try{const r=await fetch("music-library.json?v=1",{cache:"no-store"});if(r.ok){const x=await r.json();musicLibrary=Array.isArray(x.tracks)?x.tracks:[];}}catch(e){musicLibrary=[];}}
-async function loadCards(){await Promise.all([loadLoveFile(),loadMusicLibrary()]);try{const r=await fetch("cards/cards.json?v=1",{cache:"no-store"});cards=r.ok?(await r.json()):[];if(!Array.isArray(cards))cards=[];}catch(e){cards=[];}renderCards();renderPlaylist();window.__renatinhoLoadedCards=cards.map(c=>c.id);window.dispatchEvent(new CustomEvent("renatinho:cards-loaded"));if(window.__refreshPhotoBooth)window.__refreshPhotoBooth();updateFinal();}
+async function loadCards(){await Promise.all([loadLoveFile(),loadMusicLibrary()]);try{const r=await fetch("cards.json?v=1",{cache:"no-store"});cards=r.ok?(await r.json()):[];if(!Array.isArray(cards))cards=[];}catch(e){cards=[];}renderCards();renderPlaylist();window.__renatinhoLoadedCards=cards.map(c=>c.id);window.dispatchEvent(new CustomEvent("renatinho:cards-loaded"));if(window.__refreshPhotoBooth)window.__refreshPhotoBooth();updateFinal();}
 
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 
